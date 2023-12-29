@@ -161,90 +161,234 @@ void Grid::set(size_t index, int value) {
 }
 
 int Grid::moveUp() {
-    int score{0};
-    for (size_t i = 4; i < 16; ++i) {
-        if (data[i] != 0) {
-            size_t j = i;
-            while (j >= 4 && data[j - 4] == 0) {
-                set(j - 4, data[j]);
-                set(j, 0);
-                j -= 4;
-            }
+    int score = 0;
 
-            if (j >= 4 && data[j - 4] == data[j]) {
-                set(j - 4, data[j] * 2);
-                set(j, 0);
-                score += data[j - 4];
+    // Déplacement des cases non vides vers le haut
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 1; i < 4; ++i) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int above = (i - 1) * 4 + j;
+
+                while (above >= 0 && data[above] == 0) {
+                    data[above] = data[current];
+                    data[current] = 0;
+                    --i;
+                    current = i * 4 + j;
+                    above = (i - 1) * 4 + j;
+                }
             }
         }
     }
+
+    // Fusion des cases adjacentes avec la même valeur
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 3; ++i) {
+            int current = i * 4 + j;
+            int below = (i + 1) * 4 + j;
+
+            if (data[current] == data[below] && data[current] != 0) {
+                data[current] *= 2;
+                score += data[current];
+                data[below] = 0;
+            }
+        }
+    }
+
+    // Déplacement final des cases non vides vers le haut
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 1; i < 4; ++i) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int above = (i - 1) * 4 + j;
+
+                while (above >= 0 && data[above] == 0) {
+                    data[above] = data[current];
+                    data[current] = 0;
+                    --i;
+                    current = i * 4 + j;
+                    above = (i - 1) * 4 + j;
+                }
+            }
+        }
+    }
+
     return score;
 }
 
 int Grid::moveDown() {
-    int score{0};
-    for (size_t i = 4; i > 0; --i) {
-        for (size_t j = 0; j < 4; ++j) {
-            if (data[(i - 1) * 4 + j] != 0) {
-                size_t k = (i - 1) * 4 + j;
-                while (k <= 12 && data[k + 4] == 0) {
-                    set(k + 4, data[k]);
-                    set(k, 0);
-                    k += 4;
-                }
+    int score = 0;
 
-                if (k <= 12 && data[k + 4] == data[k]) {
-                    set(k + 4, data[k] * 2);
-                    set(k, 0);
-                    score += data[k + 4];
+    // Déplacement des cases non vides vers le bas
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 2; i >= 0; --i) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int below = (i + 1) * 4 + j;
+
+                while (below < 4 && data[below] == 0) {
+                    data[below] = data[current];
+                    data[current] = 0;
+                    ++i;
+                    current = i * 4 + j;
+                    below = (i + 1) * 4 + j;
                 }
             }
         }
     }
+
+    // Fusion des cases adjacentes avec la même valeur
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 3; i > 0; --i) {
+            int current = i * 4 + j;
+            int above = (i - 1) * 4 + j;
+
+            if (data[current] == data[above] && data[current] != 0) {
+                data[current] *= 2;
+                score += data[current];
+                data[above] = 0;
+            }
+        }
+    }
+
+    // Déplacement final des cases non vides vers le bas
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 2; i >= 0; --i) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int below = (i + 1) * 4 + j;
+
+                while (below < 4 && data[below] == 0) {
+                    data[below] = data[current];
+                    data[current] = 0;
+                    ++i;
+                    current = i * 4 + j;
+                    below = (i + 1) * 4 + j;
+                }
+            }
+        }
+    }
+
     return score;
 }
 
 int Grid::moveLeft() {
-    int score{0};
-    for (size_t i = 0; i < 4; ++i) {
-        for (size_t j = 0; j < 4; ++j) {
-            if (data[i * 4 + j] != 0) {
-                size_t k = i * 4 + j;
-                while (k % 4 != 0 && data[k - 1] == 0) {
-                    set(k - 1, data[k]);
-                    set(k, 0);
-                    k -= 1;
-                }
+    int score = 0;
 
-                if (k % 4 != 0 && data[k - 1] == data[k]) {
-                    set(k - 1, data[k] * 2);
-                    set(k, 0);
-                    score += data[k - 1];
+    // Déplacement des cases non vides vers la gauche
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 1; j < 4; ++j) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int left = i * 4 + j - 1;
+
+                while (left >= 0 && data[left] == 0) {
+                    data[left] = data[current];
+                    data[current] = 0;
+                    --j;
+                    current = i * 4 + j;
+                    left = i * 4 + j - 1;
                 }
             }
         }
     }
+
+    // Fusion des cases adjacentes avec la même valeur
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            int current = i * 4 + j;
+            int next = i * 4 + j + 1;
+
+            if (data[current] == data[next] && data[current] != 0) {
+                data[current] *= 2;
+                score += data[current];
+                data[next] = 0;
+            }
+        }
+    }
+
+    // Déplacement final des cases non vides vers la gauche
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 1; j < 4; ++j) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int left = i * 4 + j - 1;
+
+                while (left >= 0 && data[left] == 0) {
+                    data[left] = data[current];
+                    data[current] = 0;
+                    --j;
+                    current = i * 4 + j;
+                    left = i * 4 + j - 1;
+                }
+            }
+        }
+    }
+
     return score;
 }
 
 int Grid::moveRight() {
-    int score{0};
-    for (size_t i = 16; i > 0; --i) {
-        if (data[i - 1] != 0 && (i - 1) % 4 != 3) {
-            size_t j = i - 1;
-            while (j % 4 != 3 && data[j + 1] == 0) {
-                set(j + 1, data[j]);
-                set(j, 0);
-                j += 1;
-            }
+    int score = 0;
 
-            if (j % 4 != 3 && data[j + 1] == data[j]) {
-                set(j + 1, data[j] * 2);
-                set(j, 0);
-                score += data[j + 1];
+    // Déplacement des cases non vides vers la droite
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 2; j >= 0; --j) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int right = i * 4 + j + 1;
+
+                while (right < 4 && data[right] == 0) {
+                    data[right] = data[current];
+                    data[current] = 0;
+                    ++j;
+                    current = i * 4 + j;
+                    right = i * 4 + j + 1;
+                }
             }
         }
     }
+
+    // Fusion des cases adjacentes avec la même valeur
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 3; j > 0; --j) {
+            int current = i * 4 + j;
+            int previous = i * 4 + j - 1;
+
+            if (data[current] == data[previous] && data[current] != 0) {
+                data[current] *= 2;
+                score += data[current];
+                data[previous] = 0;
+            }
+        }
+    }
+
+    // Déplacement final des cases non vides vers la droite
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 2; j >= 0; --j) {
+            int current = i * 4 + j;
+
+            if (data[current] != 0) {
+                int right = i * 4 + j + 1;
+
+                while (right < 4 && data[right] == 0) {
+                    data[right] = data[current];
+                    data[current] = 0;
+                    ++j;
+                    current = i * 4 + j;
+                    right = i * 4 + j + 1;
+                }
+            }
+        }
+    }
+
     return score;
 }
 
