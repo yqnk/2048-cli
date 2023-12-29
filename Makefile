@@ -1,5 +1,5 @@
 CC = g++
-CPPFLAGS = -Wall -Wextra -g -std=c++11
+CPPFLAGS = -Wall -Wextra -g -std=c++20
 CFLAGS =
 LDFLAGS = 
 LDLIBS =
