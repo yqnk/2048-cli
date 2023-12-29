@@ -20,8 +20,10 @@ void Game::update(char *&message) {
         std::cout << "Score: " << score << std::endl;
         std::cout << "Enter a move (z, q, s, d): ";
 
-        char move;
-        std::cin >> move;
+        char move = getchar();
+
+        while (getchar() != '\n')
+            ;
 
         switch (move) {
         case 'z':
@@ -70,6 +72,13 @@ void Game::update(char *&message) {
         ++moves;
     }
 
+    // Clear screen
+    std::cout << "\033[2J\033[1;1H";
+    std::cout << message << std::endl;
+
+    grid.print();
+    std::cout << "Moves: " << moves << std::endl;
+    std::cout << "Score: " << score << std::endl;
     std::cout << "Game over after " << moves << " moves!\n"
               << "Final score: " << score << std::endl;
 }
