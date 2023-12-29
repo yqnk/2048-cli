@@ -1,7 +1,7 @@
 #include "game.h"
 
-#include <string.h>
 #include <iostream>
+#include <string.h>
 
 Game::Game() {
     grid = Grid();
@@ -9,7 +9,7 @@ Game::Game() {
     score = 0;
 }
 
-void Game::update(char*& message) {
+void Game::update(char *&message) {
     while (grid.canMove()) {
         // Clear screen
         std::cout << "\033[2J\033[1;1H";

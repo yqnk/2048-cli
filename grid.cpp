@@ -43,8 +43,8 @@ size_t countDigits(int value) {
     return digits;
 }
 
-char* buildCell(size_t length, int value) {
-    char* line = new char[length + 1];
+char *buildCell(size_t length, int value) {
+    char *line = new char[length + 1];
     std::string str;
 
     if (value != 0) {
@@ -238,7 +238,6 @@ bool Grid::canMoveRight() const {
     }
     return false;
 }
-
 
 bool Grid::canMove() const {
     return canMoveUp() || canMoveDown() || canMoveLeft() || canMoveRight();
