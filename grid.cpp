@@ -240,7 +240,7 @@ int Grid::moveLeft() {
 
     // Merge les chiffres avec leur chiffre de gauche si possible
     for (size_t i = 0; i < 16; ++i) {
-        if (data[i] != 0 && data[i - 1] == data[i]) {
+        if (data[i] != 0 && data[i - 1] == data[i] && i % 4 != 0) {
             set(i - 1, data[i] * 2);
             set(i, 0);
             score += data[i - 1];
