@@ -306,6 +306,7 @@ bool Grid::canMoveDown() const {
             return true;
         }
     } 
+    return false;
 }
 
 bool Grid::canMoveRight() const {
