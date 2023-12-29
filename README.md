@@ -18,4 +18,9 @@
 
     $ ./main
 
-## License
+### Help
+- z : moves up
+- q : moves left
+- s : moves down
+- d : moves right
+- x : exits
