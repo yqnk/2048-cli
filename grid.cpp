@@ -110,7 +110,7 @@ void Grid::print() const {
             std::cout << "\033[91;1m" << cell << "\033[0m"; // Brighter red text
             break;
         case 64:
-            std::cout << "\033[91;4m" << cell << "\033[0m"; // Bright red text, underlined
+            std::cout << "\033[91m" << cell << "\033[0m"; // Bright red text
             break;
         case 128:
             std::cout << "\033[91;2m" << cell << "\033[0m"; // Darker red text
