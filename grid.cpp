@@ -183,19 +183,21 @@ int Grid::moveUp() {
 
 int Grid::moveDown() {
     int score{0};
-    for (size_t i = 12; i > 0; --i) {
-        if (data[i - 1] != 0) {
-            size_t j = i - 1;
-            while (j <= 11 && data[j + 4] == 0) {
-                set(j + 4, data[j]);
-                set(j, 0);
-                j += 4;
-            }
+    for (size_t i = 4; i > 0; --i) {
+        for (size_t j = 0; j < 4; ++j) {
+            if (data[(i - 1) * 4 + j] != 0) {
+                size_t k = (i - 1) * 4 + j;
+                while (k <= 12 && data[k + 4] == 0) {
+                    set(k + 4, data[k]);
+                    set(k, 0);
+                    k += 4;
+                }
 
-            if (j <= 11 && data[j + 4] == data[j]) {
-                set(j + 4, data[j] * 2);
-                set(j, 0);
-                score += data[j + 4];
+                if (k <= 12 && data[k + 4] == data[k]) {
+                    set(k + 4, data[k] * 2);
+                    set(k, 0);
+                    score += data[k + 4];
+                }
             }
         }
     }
@@ -204,19 +206,21 @@ int Grid::moveDown() {
 
 int Grid::moveLeft() {
     int score{0};
-    for (size_t i = 0; i < 16; ++i) {
-        if (data[i] != 0 && i % 4 != 0) {
-            size_t j = i;
-            while (j % 4 != 0 && data[j - 1] == 0) {
-                set(j - 1, data[j]);
-                set(j, 0);
-                j -= 1;
-            }
+    for (size_t i = 0; i < 4; ++i) {
+        for (size_t j = 0; j < 4; ++j) {
+            if (data[i * 4 + j] != 0) {
+                size_t k = i * 4 + j;
+                while (k % 4 != 0 && data[k - 1] == 0) {
+                    set(k - 1, data[k]);
+                    set(k, 0);
+                    k -= 1;
+                }
 
-            if (j % 4 != 0 && data[j - 1] == data[j]) {
-                set(j - 1, data[j] * 2);
-                set(j, 0);
-                score += data[j - 1];
+                if (k % 4 != 0 && data[k - 1] == data[k]) {
+                    set(k - 1, data[k] * 2);
+                    set(k, 0);
+                    score += data[k - 1];
+                }
             }
         }
     }
