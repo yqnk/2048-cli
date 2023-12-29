@@ -18,7 +18,7 @@
 
     $ ./main
 
-### Help
+### In-game commands
 - z : moves up
 - q : moves left
 - s : moves down
