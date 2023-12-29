@@ -89,12 +89,69 @@ void Grid::print() const {
 
     // Print the grid correctly
     for (size_t i = 0; i < 16; ++i) {
-        std::cout << "| " << buildCell(maxColumnLength, data[i]) << ' ';
+        std::cout << "| ";
+        char *cell = buildCell(maxColumnLength, data[i]);
+
+        // Switch statement for text color
+        switch (data[i]) {
+        case 2:
+            std::cout << "\033[37m" << cell << "\033[0m"; // Gray text
+            break;
+        case 4:
+            std::cout << "\033[93m" << cell << "\033[0m"; // Light yellow text
+            break;
+        case 8:
+            std::cout << "\033[33m" << cell << "\033[0m"; // Dark yellow text
+            break;
+        case 16:
+            std::cout << "\033[91m" << cell << "\033[0m"; // Red text
+            break;
+        case 32:
+            std::cout << "\033[91;1m" << cell << "\033[0m"; // Brighter red text
+            break;
+        case 64:
+            std::cout << "\033[91;4m" << cell << "\033[0m"; // Bright red text, underlined
+            break;
+        case 128:
+            std::cout << "\033[91;2m" << cell << "\033[0m"; // Darker red text
+            break;
+        case 256:
+            std::cout << "\033[32m" << cell << "\033[0m"; // Green text (light)
+            break;
+        case 512:
+            std::cout << "\033[32;1m" << cell << "\033[0m"; // Bright green text
+            break;
+        case 1024:
+            std::cout << "\033[32;2m" << cell << "\033[0m"; // Dark green text
+            break;
+        case 2048:
+            std::cout << "\033[32;3m" << cell << "\033[0m"; // Another shade of green
+            break;
+        case 4096:
+            std::cout << "\033[32;4m" << cell << "\033[0m"; // Another shade of green
+            break;
+        case 8192:
+            std::cout << "\033[32;5m" << cell << "\033[0m"; // Another shade of green
+            break;
+        case 16384:
+            std::cout << "\033[32;7m" << cell << "\033[0m"; // Another shade of green
+            break;
+        default:
+            std::cout << cell;
+        }
+
+        std::cout << ' ';
+
         if (i % 4 == 3) {
             std::cout << '|' << std::endl;
             std::cout << separator << std::endl;
         }
+
+        delete[] cell;
     }
+
+    // Clean up
+    delete[] separator;
 }
 
 void Grid::set(size_t index, int value) {
