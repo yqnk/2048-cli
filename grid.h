@@ -9,6 +9,8 @@ private:
     int data[16];
 
     void set(size_t index, int value);
+    void rotate(int numTurns);
+    void setData(int newData[16]);
 public:
     Grid();
     Grid(int initData[16]);
