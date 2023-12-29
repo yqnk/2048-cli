@@ -46,7 +46,7 @@ void Game::update(char *&message) {
             score += grid.moveLeft();
             break;
         case 's':
-            if (!grid.canMoveDown()) {
+            if (!grid.canMoveUp()) {
                 free(message);
                 message = strdup("Cannot move down!");
                 continue;
@@ -54,7 +54,7 @@ void Game::update(char *&message) {
             score += grid.moveDown();
             break;
         case 'd':
-            if (!grid.canMoveRight()) {
+            if (!grid.canMoveLeft()) {
                 free(message);
                 message = strdup("Cannot move right!");
                 continue;
