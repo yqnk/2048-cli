@@ -199,7 +199,7 @@ int Grid::moveUp() {
         if (data[i] != 0 && data[i - 4] == data[i]) {
             set(i - 4, data[i] * 2);
             set(i, 0);
-            score += data[i] * 2;
+            score += data[i - 4];
         }
     }
 
@@ -228,9 +228,34 @@ int Grid::moveDown() {
 int Grid::moveLeft() {
     int score{0};
     
-    rotate(1);
-    score += moveUp();
-    rotate(3);
+    // Décaler tous les chiffres vers la gauche sans merge
+    for (size_t i = 0; i < 16; ++i) {
+        size_t j = i;
+        while (j % 4 != 0 && data[j - 1] == 0) {
+            set(j - 1, data[j]);
+            set(j, 0);
+            --j;
+        }
+    }
+
+    // Merge les chiffres avec leur chiffre de gauche si possible
+    for (size_t i = 0; i < 16; ++i) {
+        if (data[i] != 0 && data[i - 1] == data[i]) {
+            set(i - 1, data[i] * 2);
+            set(i, 0);
+            score += data[i - 1];
+        }
+    }
+
+    // Décaler tous les chiffres vers la gauche sans merge
+    for (size_t i = 0; i < 16; ++i) {
+        size_t j = i;
+        while (j % 4 != 0 && data[j - 1] == 0) {
+            set(j - 1, data[j]);
+            set(j, 0);
+            --j;
+        }
+    }
 
     return score;
 }
@@ -238,9 +263,9 @@ int Grid::moveLeft() {
 int Grid::moveRight() {
     int score{0};
     
-    rotate(3);
-    score += moveUp();
-    rotate(1);
+    rotate(2);
+    score += moveLeft();
+    rotate(2);
 
     return score;
 }

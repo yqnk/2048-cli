@@ -9,7 +9,6 @@ private:
     int data[16];
 
     void set(size_t index, int value);
-    void rotate(int numTurns);
     void setData(int newData[16]);
 public:
     Grid();
@@ -25,6 +24,7 @@ public:
     bool canMoveLeft() const;
     bool canMoveRight() const;
     void spawn(size_t count = 1);
+    void rotate(int numTurns);
 };
 
 #endif
