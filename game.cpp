@@ -46,7 +46,7 @@ void Game::update(char *&message) {
             score += grid.moveLeft();
             break;
         case 's':
-            if (!grid.canMoveUp()) {
+            if (!grid.canMoveDown()) {
                 free(message);
                 message = strdup("Cannot move down!");
                 continue;
@@ -54,7 +54,7 @@ void Game::update(char *&message) {
             score += grid.moveDown();
             break;
         case 'd':
-            if (!grid.canMoveLeft()) {
+            if (!grid.canMoveRight()) {
                 free(message);
                 message = strdup("Cannot move right!");
                 continue;
@@ -106,10 +106,11 @@ void Game::update(char *&message) {
         std::cout << " (New high score!)" << std::endl;
     } else {
         int i = 1;
+        size_t size = scores.size();
         while (scores.back() != score) {
             scores.pop_back();
             ++i;
         }
-        std::cout << "(#" << i << "/" << scores.size() << ")" << std::endl;
+        std::cout << "(#" << i << "/" << size << ")" << std::endl;
     }
 }

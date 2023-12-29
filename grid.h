@@ -20,7 +20,9 @@ public:
     int moveRight();
     bool canMove() const;
     bool canMoveUp() const;
+    bool canMoveDown() const;
     bool canMoveLeft() const;
+    bool canMoveRight() const;
     void spawn(size_t count = 1);
     void rotate(int numTurns);
 };

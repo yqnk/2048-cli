@@ -296,6 +296,31 @@ bool Grid::canMoveLeft() const {
     return false;
 }
 
+bool Grid::canMoveDown() const {
+    for (size_t i = 0; i < 12; ++i) {
+        if (data[i] != 0 && data[i + 4] == 0) {
+            return true;
+        }
+
+        if (data[i] != 0 && data[i + 4] == data[i]) {
+            return true;
+        }
+    } 
+}
+
+bool Grid::canMoveRight() const {
+    for (size_t i = 0; i < 16; ++i) {
+        if (data[i] != 0 && i % 4 != 3 && data[i + 1] == 0) {
+            return true;
+        }
+
+        if (data[i] != 0 && i % 4 != 3 && data[i + 1] == data[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Grid::canMove() const {
-    return canMoveUp() || canMoveLeft();
+    return canMoveUp() || canMoveLeft() || canMoveDown() || canMoveRight();
 }
