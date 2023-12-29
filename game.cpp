@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string.h>
+#include <vector>
 
 Game::Game() {
     grid = Grid();
@@ -22,8 +23,7 @@ void Game::update(char *&message) {
 
         char move = getchar();
 
-        while (getchar() != '\n')
-            ;
+        while (getchar() != '\n');
 
         switch (move) {
         case 'z':
