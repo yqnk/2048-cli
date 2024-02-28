@@ -1,6 +1,6 @@
 # 2048-cli
 
-> C++20 2048 CLI game developped with C++ in mind.
+> C++20 2048 CLI game.
 
 ## Getting Started
 
